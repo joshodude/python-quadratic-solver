@@ -1,3 +1,5 @@
+# joshodude - 2020
+
 import math
 from fractions import Fraction
 
@@ -58,13 +60,13 @@ while again == 'y' or again == 'Y':
                 rad = (str(outsidenum) + "√" + str(insidenum))
 
     if "i" in rad and "√" in rad:
-        print(str(-1 * b) + " ± " + rad + " / " + str(2 * a))
+        print("(" + str(-1 * b) + " ± " + rad + ") / (" + str(2 * a) + ")")
         print("")
     elif "√" in rad:
-        print(str(-1 * b) + " ± " + rad + " / " + str(2 * a))
+        print("(" + str(-1 * b) + " ± " + rad + ") / (" + str(2 * a) + ")")
         print("")
     elif "i" in rad:
-        print(str(-1 * b) + " ± " + rad + " / " + str(2 * a))
+        print("(" + str(-1 * b) + " ± " + rad + ") / (" + str(2 * a) + ")")
         print("")
     else:
         x1 = float(str(((-1 * b) + int(rad)) / (2 * a)))
