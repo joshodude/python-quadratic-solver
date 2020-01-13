@@ -84,5 +84,5 @@ while again == 'y' or again == 'Y':
 
         print("")
 
-    again = input("Again? ")
+    again = input("Again? (y for yes): ")
     print("")
