@@ -6,6 +6,8 @@ Input A, B, and C from your Ax^2 + Bx + C = 0 equation.
 
 It will print the discriminant and the solution(s) to the equation.
 
+
+
 Example:
 
 A = 8
