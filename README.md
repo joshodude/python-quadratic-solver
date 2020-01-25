@@ -18,3 +18,5 @@ Input A, B, and C from your standard form (Ax^2 + Bx + C = 0) quadratic equation
 - [x] Start a GUI.
 - [ ] Finish the GUI.
 - [ ] Make answers easier to read. Don't format like (-1 ± i√3) / (2)
+- [ ] Try and add a graph for the equations.
+- [ ] Add converter to vertex and factored form.
