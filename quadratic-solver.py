@@ -1,88 +1,54 @@
-# joshodude - 2020
+import PySimpleGUI as sg
+import quadmath
 
-import math
-from fractions import Fraction
+sg.theme('Dark')
+sg.SetOptions(element_padding=(0, 0), margins=(10, 0), font=('Tahoma', 18))
 
-rad = ""
-again = "y"
-print("")
 
-while again == 'y' or again == 'Y':
-    a = int(input("A = "))
-    b = int(input("B = "))
-    c = int(input("C = "))
-    print("")
+nostrings = [[sg.Text('This program only accepts numbers.')]]
 
-    d = ((b ** 2) - (4 * a * c))
+inputcol = [[sg.Text('Input:', font=('Tahoma', 20), pad=(0, 10))],
+            [sg.Text('Enter A:', size=(7, 1)), sg.InputText(size=(6, 1), do_not_clear=False, key='a')],
+            [sg.Text('Enter B:', size=(7, 1)), sg.InputText(size=(6, 1), do_not_clear=False, key='b')],
+            [sg.Text('Enter C:', size=(7, 1)), sg.InputText(size=(6, 1), do_not_clear=False, key='c')]]
 
-    print("Discriminant: ", d)
+answercol = [[sg.Text('Output:', font=('Tahoma', 20), pad=(0, 10))],
+             [sg.Text('Discriminant:', size=(12, 1)), sg.Text('', size=(20, 1), key='d')],
+             [sg.Text('Solution:', size=(12, 1)), sg.Text('', size=(20, 1), key='solution')],
+             [sg.Text('', size=(15, 1)), sg.Text('', size=(20, 1), key='solution2')]]
 
-    if d < 0:
-        d_abs = abs(d)
-    else:
-        d_abs = d
+layout = [[sg.Column(inputcol), sg.Column(answercol)],
+          [sg.Button('Cancel', button_color=('white', 'red'), pad=(10, 20)),
+           sg.Button('Calculate', button_color=('white', 'green'), pad=(0, 20))]]
 
-    rad1 = int(d_abs)
-    workrad1 = rad1
-    sqrnum = 1
 
-    for i in range(2, rad1):
-        mexp = 1
-        while i ** mexp <= workrad1:
-            if workrad1 % i ** mexp == 0:
-                mexp = mexp + 1
-            else:
-                break
-        if mexp > 2:
-            sqrfac = i ** (int((mexp - 1) / 2))
-            sqrnum = sqrnum * sqrfac
-            workrad1 = workrad1 / (sqrfac ** 2)
+window = sg.Window('Python Quadratic Solver', layout)
 
-    outsidenum = int(sqrnum)
-    insidenum = int(rad1 / (sqrnum ** 2))
-    print("")
+while True:
+    event, values = window.read()
+    if event in (None, 'Cancel'):
+        break
+    try:
+        tryA = int(values['a']) + 1
+        tryB = int(values['b']) + 1
+        tryC = int(values['c']) + 1
 
-    if insidenum == 1:
-        if d < 0:
-            rad = (str(outsidenum) + "i")
+        solution = quadmath.TheMath(values['a'], values['b'], values['c']).calc()
+
+        discriminant = ((int(values['b']) ** 2) - (4 * int(values['a']) * int(values['c'])))
+        window.FindElement('d').update(discriminant)
+
+        if 'X =' in solution[0]:
+            window.FindElement('solution').update(solution[0])
+            window.FindElement('solution2').update(solution[1])
         else:
-            rad = (str(outsidenum))
-    else:
-        if outsidenum == 1:
-            if d < 0:
-                rad = ("i√" + str(insidenum))
-            else:
-                rad = ("√" + str(insidenum))
-        else:
-            if d < 0:
-                rad = (str(outsidenum) + "i" + "√" + str(insidenum))
-            else:
-                rad = (str(outsidenum) + "√" + str(insidenum))
+            window.FindElement('solution').update(solution)
+            window.FindElement('solution2').update('')
 
-    if "i" in rad and "√" in rad:
-        print("(" + str(-1 * b) + " ± " + rad + ") / (" + str(2 * a) + ")")
-        print("")
-    elif "√" in rad:
-        print("(" + str(-1 * b) + " ± " + rad + ") / (" + str(2 * a) + ")")
-        print("")
-    elif "i" in rad:
-        print("(" + str(-1 * b) + " ± " + rad + ") / (" + str(2 * a) + ")")
-        print("")
-    else:
-        x1 = float(str(((-1 * b) + int(rad)) / (2 * a)))
-        x2 = float(str(((-1 * b) - int(rad)) / (2 * a)))
+    except ValueError:
+        confirm = sg.PopupOK('This program only accepts numbers.', title='Error', button_color=('white', 'green'))
+        window.FindElement('d').update('')
+        window.FindElement('solution').update('')
+        window.FindElement('solution2').update('')
 
-        if x1.is_integer():
-            print("X = " + str(x1))
-        else:
-            print("X = " + str(Fraction(x1).limit_denominator()))
-
-        if x2.is_integer():
-            print("X = " + str(x2))
-        else:
-            print("X = " + str(Fraction(x2).limit_denominator()))
-
-        print("")
-
-    again = input("Again? (y for yes): ")
-    print("")
+window.close()
