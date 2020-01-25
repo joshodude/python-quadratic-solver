@@ -5,6 +5,7 @@ Requires PySimpleGUI.
 
 ### How to use:
 
+Run `quadratic-solver.py` from your Python interpreter.
 When you run it, it will ask for A, B, and C.
 Input A, B, and C from your standard form (Ax^2 + Bx + C = 0) quadratic equation and push the calculate button.
 
