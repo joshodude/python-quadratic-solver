@@ -15,7 +15,7 @@ inputcol = [[sg.Text('Input:', font=('Tahoma', 20), pad=(0, 10))],
 answercol = [[sg.Text('Output:', font=('Tahoma', 20), pad=(0, 10))],
              [sg.Text('Discriminant:', size=(12, 1)), sg.Text('', size=(20, 1), key='d')],
              [sg.Text('Solution:', size=(12, 1)), sg.Text('', size=(20, 1), key='solution')],
-             [sg.Text('', size=(15, 1)), sg.Text('', size=(20, 1), key='solution2')]]
+             [sg.Text('', size=(12, 1)), sg.Text('', size=(20, 1), key='solution2')]]
 
 layout = [[sg.Column(inputcol), sg.Column(answercol)],
           [sg.Button('Cancel', button_color=('white', 'red'), pad=(10, 20)),
