@@ -17,7 +17,10 @@ answercol = [[sg.Text('Output:', font=('Tahoma', 20), pad=(0, 10))],
              [sg.Text('Solution:', size=(12, 1)), sg.Text('', size=(20, 1), key='solution')],
              [sg.Text('', size=(12, 1)), sg.Text('', size=(20, 1), key='solution2')]]
 
-layout = [[sg.Column(inputcol), sg.Column(answercol)],
+answercol2 = [[sg.Text('', font=('Tahoma', 20), pad=(0, 10))],
+             [sg.Text('Standard:', size=(10, 1)), sg.Text('', size=(20, 1), key='standard')]]
+
+layout = [[sg.Column(inputcol), sg.Column(answercol), sg.Col(answercol2)],
           [sg.Button('Cancel', button_color=('white', 'red'), pad=(10, 20)),
            sg.Button('Calculate', button_color=('white', 'green'), pad=(0, 20))]]
 
@@ -33,10 +36,12 @@ while True:
         tryB = int(values['b']) + 1
         tryC = int(values['c']) + 1
 
-        solution = quadmath.TheMath(values['a'], values['b'], values['c']).calc()
+        solution = quadmath.TheMath(values['a'], values['b'], values['c']).calc_zeros()
 
         discriminant = ((int(values['b']) ** 2) - (4 * int(values['a']) * int(values['c'])))
         window.FindElement('d').update(discriminant)
+
+        window.FindElement('standard').update(quadmath.TheMath(values['a'], values['b'], values['c']).convrt_vertex())
 
         if 'X =' in solution[0]:
             window.FindElement('solution').update(solution[0])
